@@ -1,7 +1,6 @@
 package Program;
 
 import java.util.Scanner;
-
 import Libraries.Range;
 
 public class Main {
