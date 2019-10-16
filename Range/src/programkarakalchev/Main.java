@@ -1,7 +1,7 @@
-package Program;
+package programkarakalchev;
 
 import java.util.Scanner;
-import Libraries.Range;
+import librarieskarakalchev.Range;
 
 public class Main {
     public static void main(String[] args) {
