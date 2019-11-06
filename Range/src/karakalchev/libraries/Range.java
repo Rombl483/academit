@@ -37,43 +37,62 @@ public class Range {
         System.out.printf("Числовой диапазон =  [%.2f .. %.2f]%n", from, to);
     }
 
-    public static Range getIntersection(Range range1, Range range2) {
-        if (range1.from <= range2.from && range2.from <= range1.to) {
-            if (range1.to <= range2.to) {
-                return new Range(range2.from, range1.to);
+    public Range getIntersection(Range range) {
+        if ((this.from <= range.from && this.to >= range.from) ||
+                (range.from <= this.from && range.to >= this.from)){
+            if (this.to <= range.to) {
+                return new Range(range.from, this.to);
             } else {
-                return new Range(range2.from, range2.to);
+                return new Range(range.from, range.to);
             }
         }
 
         return null;
     }
 
-    public static Range[] getUnion(Range range1, Range range2) {
-        Range[] ranges = new Range[2];
+    public Range[] getUnion(Range range) {
+        Range[] ranges;
 
-        if (range1.from <= range2.from && range2.from <= range1.to) {
-            if (range1.to <= range2.to) {
-                ranges[0] = new Range(range1.from, range2.to);
+        if ((this.from <= range.from && range.from <= this.to) ||
+                (range.from <= this.from && this.from <= range.to)) {
+            ranges = new Range[1];
+
+            if (this.to <= range.to) {
+                ranges[0] = new Range(range.from, range.to);
             } else {
-                ranges[0] = new Range(range1.from, range1.to);
+                ranges[0] = new Range(this.from, this.to);
             }
         } else {
-            ranges[0] = range1;
-            ranges[1] = range2;
+            ranges = new Range[2];
+            ranges[0] = this;
+            ranges[1] = range;
         }
 
         return ranges;
     }
 
-    public static Range[] getDifference(Range range1, Range range2) {
-        Range[] ranges = new Range[2];
+    public Range[] getDifference(Range range) {
+        Range[] ranges;
 
-        if (range1.from <= range2.from && range2.from <= range1.to && range1.to <= range2.to) {
-            ranges[0] = new Range(range1.from, range2.from);
+        if (this.from <= range.from && range.from <= this.to) {
+            if (this.to <= range.to) {
+                ranges = new Range[1];
+                ranges[0] = new Range(this.from, range.from);
+            } else {
+                ranges = new Range[2];
+                ranges[0] = new Range(this.from, range.from);
+                ranges[1] = new Range(range.to, this.to);
+            }
+        } else if (range.from <= this.from && this.from <= range.to) {
+            if (this.to >= range.to) {
+                ranges = new Range[1];
+                ranges[0] = new Range(range.to, this.to);
+            } else {
+                return null;
+            }
         } else {
-            ranges[0] = range1;
-            ranges[1] = range2;
+            ranges = new Range[1];
+            ranges[0] = this;
         }
 
         return ranges;

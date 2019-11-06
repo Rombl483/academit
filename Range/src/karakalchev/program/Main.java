@@ -79,7 +79,7 @@ public class Main {
                     System.out.printf("Длина числового диапазона составляет %.3f%n", range1.getLength());
                     break;
                 case 6:
-                    Range range3 = Range.getIntersection(range1, range2);
+                    Range range3 = range1.getIntersection(range2);
 
                     if (range3 != null) {
                         System.out.printf("Пересечение интервалов = [%.2f .. %.2f]%n", range3.getFrom(), range3.getTo());
@@ -89,24 +89,23 @@ public class Main {
 
                     break;
                 case 7:
-                    Range[] rangesUnion = Range.getUnion(range1, range2);
+                    Range[] rangesUnion = range1.getUnion(range2);
 
                     System.out.println("Объединение интервалов: ");
 
                     for (Range e : rangesUnion) {
-                        if (e != null) {
-                            System.out.printf("[%.2f .. %.2f]%n", e.getFrom(), e.getTo());
-                        }
+                        System.out.printf("[%.2f .. %.2f]%n", e.getFrom(), e.getTo());
                     }
 
                     break;
                 case 8:
-                    Range[] rangesDifference = Range.getDifference(range1, range2);
+                    Range[] rangesDifference = range1.getDifference(range2);
 
                     System.out.println("Разность интервалов: ");
-
-                    for (Range e : rangesDifference) {
-                        if (e != null) {
+                    if (rangesDifference == null) {
+                        System.out.println("    Пустое множество.");
+                    } else {
+                        for (Range e : rangesDifference) {
                             System.out.printf("[%.2f .. %.2f]%n", e.getFrom(), e.getTo());
                         }
                     }
