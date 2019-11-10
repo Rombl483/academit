@@ -75,6 +75,11 @@ public class Triangle implements Shape {
     }
 
     @Override
+    public String toString(){
+        return String.format("Треугольник с координатами сторон: (%.2f; %.2f) (%.2f; %.2f) (%.2f; %.2f)", x1, y1, x2, y2, x3, y3);
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (o == this) {
             return true;

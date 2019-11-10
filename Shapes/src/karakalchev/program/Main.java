@@ -1,27 +1,50 @@
 package karakalchev.program;
 
+import java.util.Arrays;
 import karakalchev.libraries.Shape;
 import karakalchev.libraries.Square;
 import karakalchev.libraries.Triangle;
 import karakalchev.libraries.Rectangle;
 import karakalchev.libraries.Circle;
-
+import karakalchev.libraries.ShapeAreaComparator;
+import karakalchev.libraries.ShapePerimeterComparator;
 
 public class Main {
     public static void main(String[] args) {
-        Shape[] shapes = new Shape[4];
+        ShapePerimeterComparator shapeMaxPerimeter = new ShapePerimeterComparator();
+        ShapeAreaComparator shapeMaxArea = new ShapeAreaComparator();
 
-        shapes[0] = new Square(10);
+        Shape[] shapes = new Shape[10];
+
+        shapes[0] = new Circle(5);
         shapes[1] = new Triangle(1,2,4,7,7,2);
         shapes[2] = new Rectangle(10,5);
-        shapes[3] = new Circle(5);
+        shapes[3] = new Square(10);
+        shapes[4] = new Circle(15);
+        shapes[5] = new Triangle(1,2,7,10,7,2);
+        shapes[6] = new Rectangle(3,3);
+        shapes[7] = new Square(7);
+        shapes[8] = new Rectangle(3,4);
+        shapes[9] = new Square(4);
 
-        System.out.printf("Площадь квадрата = %.2f%n", shapes[0].getArea());
-        System.out.printf("Площадь треугольника = %.2f%n", shapes[1].getArea());
-        System.out.printf("Площадь прямоугольника = %.2f%n", shapes[2].getArea());
-        System.out.printf("Площадь круга = %.2f%n", shapes[3].getArea());
-        System.out.printf("Площадь круга = %s%n", shapes[3].toString());
-        System.out.printf("Double.hashCode(7.0) = %d%n",Double.hashCode(7.0));
-        System.out.printf("Double.hashCode(7.5) = %d%n",Double.hashCode(7.5));
+        for (Shape e: shapes) {
+            System.out.println(e);
+            System.out.printf(" Площадь = %.2f%n", e.getArea());
+            System.out.printf(" Периметр = %.2f%n", e.getPerimeter());
+            System.out.println();
+        }
+
+        Arrays.sort(shapes, shapeMaxArea);
+
+        System.out.println("Фигура с максимальной площадью:");
+        System.out.println(shapes[0]);
+        System.out.printf(" Площадь = %.2f%n", shapes[0].getArea());
+        System.out.println();
+
+        Arrays.sort(shapes, shapeMaxPerimeter);
+
+        System.out.println("Фигура с 2-м по величине периметром:");
+        System.out.println(shapes[1]);
+        System.out.printf(" Периметр = %.2f%n", shapes[1].getPerimeter());
     }
 }

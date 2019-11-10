@@ -28,6 +28,11 @@ public class Square implements Shape {
     }
 
     @Override
+    public String toString() {
+        return String.format("Квадрат: длина стороны = %.2f", sideLength);
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (o == this) {
             return true;

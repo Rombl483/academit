@@ -30,6 +30,11 @@ public class Rectangle implements Shape{
     }
 
     @Override
+    public String toString() {
+        return String.format("Прямоугольник: длина X ширина = %.2f X %.2f", heightLength, widthLength);
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (o == this) {
             return true;
