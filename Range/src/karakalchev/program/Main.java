@@ -102,7 +102,7 @@ public class Main {
                     Range[] rangesDifference = range1.getDifference(range2);
 
                     System.out.println("Разность интервалов: ");
-                    if (rangesDifference == null) {
+                    if (rangesDifference.length == 0) {
                         System.out.println("    Пустое множество.");
                     } else {
                         for (Range e : rangesDifference) {
