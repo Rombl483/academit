@@ -1,4 +1,6 @@
-package karakalchev.libraries;
+package karakalchev.libraries.Shapes;
+
+import karakalchev.libraries.Shape;
 
 public class Square implements Shape {
     private double sideLength;

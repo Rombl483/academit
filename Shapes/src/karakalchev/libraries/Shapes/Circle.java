@@ -1,6 +1,8 @@
-package karakalchev.libraries;
+package karakalchev.libraries.Shapes;
 
-public class Circle implements Shape{
+import karakalchev.libraries.Shape;
+
+public class Circle implements Shape {
     private double radius;
 
     public Circle(double radius) {
