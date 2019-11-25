@@ -20,11 +20,11 @@ public class Triangle implements Shape {
     }
 
     private double getMax(double a, double b, double c) {
-        return Math.max(Math.max(a, b), Math.max(b, c));
+        return Math.max(a, Math.max(b, c));
     }
 
     private double getMin(double a, double b, double c) {
-        return Math.min(Math.min(a, b), Math.min(b, c));
+        return Math.min(a, Math.min(b, c));
     }
 
     private static double getSideLength(double x1, double y1, double x2, double y2) {

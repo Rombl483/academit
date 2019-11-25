@@ -79,10 +79,10 @@ public class Main {
                     System.out.printf("Длина числового диапазона составляет %.3f%n", range1.getLength());
                     break;
                 case 6:
-                    Range range3 = range1.getIntersection(range2);
+                    Range intersection = range1.getIntersection(range2);
 
-                    if (range3 != null) {
-                        System.out.printf("Пересечение интервалов = [%.2f .. %.2f]%n", range3.getFrom(), range3.getTo());
+                    if (intersection != null) {
+                        System.out.printf("Пересечение интервалов = [%.2f .. %.2f]%n", intersection.getFrom(), intersection.getTo());
                     } else {
                         System.out.println("Пересечение интервалов нет!");
                     }
