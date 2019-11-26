@@ -41,7 +41,7 @@ public class Main {
             System.out.println();
 
             Vector vector5 = Vector.getVectorsAddition(vector2, vector4);
-            vector5.getMultiplicationByScalar(2);
+            vector5.getMultiplicationByScalar(2.0);
 
             System.out.println("vector5: ");
             printVectorInformation(vector5);
