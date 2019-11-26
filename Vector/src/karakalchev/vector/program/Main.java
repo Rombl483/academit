@@ -1,15 +1,15 @@
-package karakalchev.program;
+package karakalchev.vector.program;
 
-import karakalchev.libraries.Vector;
+import karakalchev.vector.libraries.Vector;
 
 public class Main {
     private static void printVectorInformation(Vector vector) {
         System.out.println(vector);
         System.out.println("getSize = " + vector.getSize());
-        System.out.printf("Длина вектора = %.3f%n", vector.length());
+        System.out.printf("Длина вектора = %.3f%n", vector.getLength());
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         try {
             Vector vector1 = new Vector(1);
 
@@ -19,7 +19,7 @@ public class Main {
 
             double[] v = {1, 2, 3, 4, 5};
 
-            Vector vector2 = new Vector(3, v);
+            Vector vector2 = new Vector(4, v);
             vector2.addition(vector1);
 
             System.out.println("vector2: ");
@@ -40,22 +40,25 @@ public class Main {
             printVectorInformation(vector4);
             System.out.println();
 
-            Vector vector5 = Vector.vectorsAddition(vector2,vector4);
+            Vector vector5 = Vector.getVectorsAddition(vector2, vector4);
+            vector5.getMultiplicationByScalar(2);
 
             System.out.println("vector5: ");
             printVectorInformation(vector5);
             System.out.println();
 
-            Vector vector6 = Vector.vectorsDifference(vector2,vector4);
+            Vector vector6 = Vector.getVectorsDifference(vector2, vector4);
 
             System.out.println("vector6: ");
             printVectorInformation(vector6);
             System.out.println();
 
-            Vector vector7 = Vector.vectorsMultiplication(vector2,vector5);
+            System.out.println("Скалярное умножение векторов:");
+            System.out.println(vector2);
+            System.out.println("X");
+            System.out.println(vector5);
+            System.out.printf(" = %.2f%n", Vector.getVectorsScalarMultiplication(vector2, vector5));
 
-            System.out.println("vector7: ");
-            printVectorInformation(vector7);
             System.out.println();
         } catch (IllegalArgumentException e) {
             System.out.println("Ошибка инициализации вектора: " + e.getMessage());
