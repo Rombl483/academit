@@ -1,12 +1,12 @@
-package karakalchev.program;
+package karakalchev.shape.program;
 
 import java.util.Arrays;
 
-import karakalchev.libraries.Shape;
-import karakalchev.libraries.Shapes.Circle;
-import karakalchev.libraries.Shapes.Rectangle;
-import karakalchev.libraries.Shapes.Triangle;
-import karakalchev.libraries.Shapes.Square;
+import karakalchev.shape.libraries.Shape;
+import karakalchev.shape.libraries.shapes.Circle;
+import karakalchev.shape.libraries.shapes.Rectangle;
+import karakalchev.shape.libraries.shapes.Square;
+import karakalchev.shape.libraries.shapes.Triangle;
 
 public class Main {
     public static void main(String[] args) {

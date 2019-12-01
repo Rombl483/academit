@@ -1,6 +1,6 @@
-package karakalchev.libraries.Shapes;
+package karakalchev.shape.libraries.shapes;
 
-import karakalchev.libraries.Shape;
+import karakalchev.shape.libraries.Shape;
 
 public class Rectangle implements Shape {
     private double height;

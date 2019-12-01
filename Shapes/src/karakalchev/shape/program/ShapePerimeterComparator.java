@@ -1,7 +1,8 @@
-package karakalchev.program;
+package karakalchev.shape.program;
 
 import java.util.Comparator;
-import karakalchev.libraries.Shape;
+
+import karakalchev.shape.libraries.Shape;
 
 public class ShapePerimeterComparator implements Comparator<Shape> {
     @Override

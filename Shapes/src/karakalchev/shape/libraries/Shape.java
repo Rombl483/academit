@@ -1,4 +1,4 @@
-package karakalchev.libraries;
+package karakalchev.shape.libraries;
 
 public interface Shape {
     double getWidth();

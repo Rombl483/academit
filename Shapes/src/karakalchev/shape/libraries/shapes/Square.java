@@ -1,37 +1,37 @@
-package karakalchev.libraries.Shapes;
+package karakalchev.shape.libraries.shapes;
 
-import karakalchev.libraries.Shape;
+import karakalchev.shape.libraries.Shape;
 
-public class Circle implements Shape {
-    private double radius;
+public class Square implements Shape {
+    private double sideLength;
 
-    public Circle(double radius) {
-        this.radius = radius;
+    public Square(double sideLength) {
+        this.sideLength = sideLength;
     }
 
     @Override
     public double getWidth() {
-        return 2 * radius;
+        return sideLength;
     }
 
     @Override
     public double getHeight() {
-        return 2 * radius;
+        return sideLength;
     }
 
     @Override
     public double getArea() {
-        return Math.PI * Math.pow(radius, 2);
+        return sideLength * sideLength;
     }
 
     @Override
     public double getPerimeter() {
-        return 2 * Math.PI * radius;
+        return 4 * sideLength;
     }
 
     @Override
     public String toString() {
-        return String.format("Окружность: радиус = %.2f", radius);
+        return String.format("Квадрат: длина стороны = %.2f", sideLength);
     }
 
     @Override
@@ -44,9 +44,9 @@ public class Circle implements Shape {
             return false;
         }
 
-        Circle p = (Circle) o;
+        Square p = (Square) o;
 
-        return radius == p.radius;
+        return sideLength == p.sideLength;
     }
 
     @Override
@@ -54,7 +54,7 @@ public class Circle implements Shape {
         final int prime = 37;
         int hash = 1;
 
-        hash = prime * hash + Double.hashCode(radius);
+        hash = prime * hash + Double.hashCode(sideLength);
 
         return hash;
     }

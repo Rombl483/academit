@@ -1,4 +1,4 @@
-package karakalchev.libraries;
+package karakalchev.range.libraries;
 
 public class Range {
     private double from;
