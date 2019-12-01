@@ -19,7 +19,7 @@ public class Main {
 
             double[] v = {1, 2, 3, 4, 5};
 
-            Vector vector2 = new Vector(4, v);
+            Vector vector2 = new Vector(7, v);
             vector2.addition(vector1);
 
             System.out.println("vector2: ");
@@ -40,14 +40,14 @@ public class Main {
             printVectorInformation(vector4);
             System.out.println();
 
-            Vector vector5 = Vector.getVectorsAddition(vector2, vector4);
-            vector5.getMultiplicationByScalar(2.0);
+            Vector vector5 = Vector.getAddition(vector2, vector4);
+            vector5.multiplicationByScalar(2.0);
 
             System.out.println("vector5: ");
             printVectorInformation(vector5);
             System.out.println();
 
-            Vector vector6 = Vector.getVectorsDifference(vector2, vector4);
+            Vector vector6 = Vector.getDifference(vector2, vector4);
 
             System.out.println("vector6: ");
             printVectorInformation(vector6);
@@ -57,7 +57,7 @@ public class Main {
             System.out.println(vector2);
             System.out.println("X");
             System.out.println(vector5);
-            System.out.printf(" = %.2f%n", Vector.getVectorsScalarMultiplication(vector2, vector5));
+            System.out.printf(" = %.2f%n", Vector.getScalarMultiplication(vector2, vector5));
 
             System.out.println();
         } catch (IllegalArgumentException e) {
