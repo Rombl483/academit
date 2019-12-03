@@ -20,7 +20,7 @@ public class Main {
             double[] v = {1, 2, 3, 4, 5};
 
             Vector vector2 = new Vector(7, v);
-            vector2.addition(vector1);
+            vector2.doAddition(vector1);
 
             System.out.println("vector2: ");
             printVectorInformation(vector2);
@@ -33,15 +33,15 @@ public class Main {
             System.out.println();
 
             Vector vector4 = new Vector(v);
-            vector4.difference(vector2);
-            vector4.reverse();
+            vector4.doDifference(vector2);
+            vector4.doReverse();
 
             System.out.println("vector4: ");
             printVectorInformation(vector4);
             System.out.println();
 
             Vector vector5 = Vector.getAddition(vector2, vector4);
-            vector5.multiplicationByScalar(2.0);
+            vector5.doMultiplicationByScalar(2.0);
 
             System.out.println("vector5: ");
             printVectorInformation(vector5);
