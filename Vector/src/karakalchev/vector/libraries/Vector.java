@@ -53,7 +53,7 @@ public class Vector {
         components[index] = component;
     }
 
-    public void addAddition(Vector vector) {
+    public void add(Vector vector) {
         if (getSize() < vector.getSize()) {
             components = Arrays.copyOf(components, vector.getSize());
         }
@@ -63,7 +63,7 @@ public class Vector {
         }
     }
 
-    public void addDifference(Vector vector) {
+    public void subtract(Vector vector) {
         if (getSize() < vector.getSize()) {
             components = Arrays.copyOf(components, vector.getSize());
         }
@@ -73,14 +73,14 @@ public class Vector {
         }
     }
 
-    public void addMultiplicationByScalar(double scalar) {
+    public void multiplyByScalar(double scalar) {
         for (int i = 0; i < getSize(); i++) {
             components[i] *= scalar;
         }
     }
 
-    public void addReverse() {
-        addMultiplicationByScalar(-1.0);
+    public void expand() {
+        multiplyByScalar(-1.0);
     }
 
     public double getLength() {
@@ -143,13 +143,13 @@ public class Vector {
 
     public static Vector getAddition(Vector vector1, Vector vector2) {
         Vector result = new Vector(vector1);
-        result.addAddition(vector2);
+        result.add(vector2);
         return result;
     }
 
     public static Vector getDifference(Vector vector1, Vector vector2) {
         Vector result = new Vector(vector1);
-        result.addDifference(vector2);
+        result.subtract(vector2);
         return result;
     }
 
