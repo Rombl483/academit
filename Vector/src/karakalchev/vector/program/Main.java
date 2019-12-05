@@ -34,7 +34,7 @@ public class Main {
 
             Vector vector4 = new Vector(v);
             vector4.subtract(vector2);
-            vector4.expand();
+            vector4.revert();
 
             System.out.println("vector4: ");
             printVectorInformation(vector4);

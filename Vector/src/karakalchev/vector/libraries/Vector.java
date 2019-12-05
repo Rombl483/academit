@@ -79,7 +79,7 @@ public class Vector {
         }
     }
 
-    public void expand() {
+    public void revert() {
         multiplyByScalar(-1.0);
     }
 
