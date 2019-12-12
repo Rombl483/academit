@@ -1,13 +1,13 @@
 package karakalchev.matrix.program;
 
 import karakalchev.matrix.libraries.Matrix;
-import karakalchev.matrix.libraries.Vector;
+import karakalchev.vector.libraries.Vector;
 
 public class Main {
     private static void printMatrixInformation(Matrix matrix, String message) {
         System.out.println(message);
         System.out.println(matrix);
-        System.out.printf("Размер матрицы = %d X %d%n", matrix.getRowCount(), matrix.getColumnCount());
+        System.out.printf("Размер матрицы = %d X %d%n", matrix.getRowsCount(), matrix.getColumnsCount());
         System.out.println();
     }
 
@@ -48,6 +48,12 @@ public class Main {
                     {1, 4, 8, 7, 5}
             };
 
+            double[][] array6 = {
+                    {1, 2, 3},
+                    {-1, 5, 8},
+                    {7, 8, 9}
+            };
+
             Vector[] vectors = new Vector[]{
                     new Vector(1),
                     new Vector(4),
@@ -61,7 +67,7 @@ public class Main {
             Matrix matrix5 = new Matrix(array2);
             Matrix matrix6 = new Matrix(array3);
             Matrix matrix7 = new Matrix(array4);
-            Matrix matrix8 = new Matrix(array5);
+            Matrix matrix8 = new Matrix(array6);
 
             printMatrixInformation(matrix1, "matrix1:");
             printMatrixInformation(matrix2, "matrix2:");
@@ -87,8 +93,9 @@ public class Main {
             System.out.println(matrix5);
             System.out.println();
 
-            matrix2.setVectorColumn(1, matrix1.getVectorColumn(1));
-            matrix2.setVectorRow(1, matrix1.getVectorRow(1));
+            matrix2.setColumn(1, matrix1.getColumn(1));
+            matrix2.setRow(1, matrix4.getRow(1));
+            printMatrixInformation(matrix2, "matrix2:");
 
             System.out.println("matrix6 X matrix7:");
             System.out.println(matrix6);
@@ -98,12 +105,13 @@ public class Main {
             System.out.println(Matrix.getMultiplication(matrix6, matrix7));
             System.out.println();
 
-            System.out.println("matrix6.getTranspose():");
-            System.out.println(matrix6.getTranspose());
+            System.out.println("matrix8.transpose():");
+            matrix8.transpose();
+            System.out.println(matrix8);
             System.out.println();
 
             System.out.printf("matrix8.getDeterminant() = %.3f%n", matrix8.getDeterminant());
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
             System.out.println(e.getMessage());
         }
     }
