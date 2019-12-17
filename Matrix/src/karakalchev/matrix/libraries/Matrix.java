@@ -259,7 +259,7 @@ public class Matrix {
         result.append("{");
 
         for (Vector e : rows) {
-            result.append(String.format("%s, ",e.toString()));
+            result.append(String.format("%s, ", e.toString()));
         }
 
         result.delete(result.lastIndexOf(", "), result.length());
