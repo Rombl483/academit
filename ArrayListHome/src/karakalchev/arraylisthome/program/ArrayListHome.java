@@ -8,8 +8,7 @@ import java.io.FileInputStream;
 
 public class ArrayListHome {
     private static void readFromFile(ArrayList<String> arrayList, String fileName) {
-        try {
-            Scanner scanner = new Scanner(new FileInputStream(fileName), "windows-1251");
+        try (Scanner scanner = new Scanner(new FileInputStream(fileName), "windows-1251")) {
             while (scanner.hasNextLine()) {
                 arrayList.add(scanner.nextLine());
             }
@@ -31,9 +30,14 @@ public class ArrayListHome {
     }
 
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Введите название файла:");
+        String fileName = scanner.nextLine();
+
         ArrayList<String> arrayListString = new ArrayList<>();
         System.out.println("Чтение данных из файла в список строк:");
-        readFromFile(arrayListString, "D:\\Academ_IT_School\\Java\\test.txt");
+        readFromFile(arrayListString, fileName);
         System.out.println(arrayListString);
         System.out.println();
 
