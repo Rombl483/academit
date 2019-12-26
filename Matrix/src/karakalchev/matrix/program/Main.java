@@ -32,7 +32,7 @@ public class Main {
             double[][] array3 = new double[][]{
                     {1, -1},
                     {2, 0},
-                    {3, 0}
+                    {3, 5}
             };
 
             double[][] array4 = new double[][]{
@@ -105,9 +105,9 @@ public class Main {
             System.out.println(Matrix.getMultiplication(matrix6, matrix7));
             System.out.println();
 
-            System.out.println("matrix8.transpose():");
-            matrix8.transpose();
-            System.out.println(matrix8);
+            System.out.println("matrix6.transpose():");
+            matrix6.transpose();
+            System.out.println(matrix6);
             System.out.println();
 
             System.out.printf("matrix8.getDeterminant() = %.3f%n", matrix8.getDeterminant());

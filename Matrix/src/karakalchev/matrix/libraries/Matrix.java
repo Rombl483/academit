@@ -31,16 +31,18 @@ public class Matrix {
             throw new IllegalArgumentException("Массив не может быть пустым.");
         }
 
+        int maxColumnsCount = array[0].length;
+
         for (int i = 1; i < array.length; i++) {
-            if (array[0].length != array[i].length) {
-                throw new IllegalArgumentException("Массив не может иметь разное количество столбцов.");
+            if (maxColumnsCount < array[i].length) {
+                maxColumnsCount = array[i].length;
             }
         }
 
         rows = new Vector[array.length];
 
         for (int i = 0; i < array.length; i++) {
-            rows[i] = new Vector(array[i]);
+            rows[i] = new Vector(maxColumnsCount, array[i]);
         }
     }
 
@@ -101,7 +103,7 @@ public class Matrix {
 
     public Vector getRow(int index) {
         if (index < 0 || index >= getRowsCount()) {
-            throw new IndexOutOfBoundsException(String.format("Индекс вектора-строки матрицы должен быть >= 0 и < %d.", getRowsCount()));
+            throw new IndexOutOfBoundsException(String.format("Индекс вектора-строки матрицы " + "должен быть >= 0 и < %d.", getRowsCount()));
         }
 
         return new Vector(rows[index]);
@@ -123,17 +125,13 @@ public class Matrix {
     }
 
     public void transpose() {
-        if (getColumnsCount() != getRowsCount()) {
-            throw new IllegalArgumentException("Транспонирование матрицы векторов не возможно, т.к. количество векторов в матрице не совпдает с размерностью векторов матрицы.");
+        Vector[] tempVectors = new Vector[getColumnsCount()];
+
+        for (int i = 0; i < getColumnsCount(); i++) {
+            tempVectors[i] = getColumn(i);
         }
 
-        for (int i = 0; i < getRowsCount(); i++) {
-            for (int j = i + 1; j < getColumnsCount(); j++) {
-                double tempElement = rows[i].getComponent(j);
-                rows[i].setComponent(j, rows[j].getComponent(i));
-                rows[j].setComponent(i, tempElement);
-            }
-        }
+        rows = tempVectors;
     }
 
     public void add(Matrix matrix) {
@@ -164,7 +162,8 @@ public class Matrix {
 
     public Vector getMultiplicationByVector(Vector vector) {
         if (getColumnsCount() != vector.getSize()) {
-            throw new IllegalArgumentException("Умножение матрицы на вектор не возможно. Количество столбцов матрицы не равно размерности вектора.");
+            throw new IllegalArgumentException("Умножение матрицы на вектор не возможно. " +
+                    "Количество столбцов матрицы не равно размерности вектора.");
         }
 
         Vector result = new Vector(getRowsCount());
@@ -177,7 +176,8 @@ public class Matrix {
     }
 
     public static Matrix getAddition(Matrix matrix1, Matrix matrix2) {
-        if (matrix1.getRowsCount() != matrix2.getRowsCount() || matrix1.getColumnsCount() != matrix2.getColumnsCount()) {
+        if (matrix1.getRowsCount() != matrix2.getRowsCount() ||
+                matrix1.getColumnsCount() != matrix2.getColumnsCount()) {
             throw new IllegalArgumentException("Сложение матриц с разной размерностью не возможно.");
         }
 
@@ -187,7 +187,8 @@ public class Matrix {
     }
 
     public static Matrix getDifference(Matrix matrix1, Matrix matrix2) {
-        if (matrix1.getRowsCount() != matrix2.getRowsCount() || matrix1.getColumnsCount() != matrix2.getColumnsCount()) {
+        if (matrix1.getRowsCount() != matrix2.getRowsCount() ||
+                matrix1.getColumnsCount() != matrix2.getColumnsCount()) {
             throw new IllegalArgumentException("Вычитание матриц с разной размерностью не возможно.");
         }
 
@@ -198,7 +199,8 @@ public class Matrix {
 
     public static Matrix getMultiplication(Matrix matrix1, Matrix matrix2) {
         if (matrix1.getColumnsCount() != matrix2.getRowsCount()) {
-            throw new IllegalArgumentException("Умножение матриц не возможно. Количество столбцов первой матрицы не равно количеству строк второй матрицы.");
+            throw new IllegalArgumentException("Умножение матриц не возможно. " +
+                    "Количество столбцов первой матрицы не равно количеству строк второй матрицы.");
         }
 
         Matrix result = new Matrix(matrix1.getRowsCount(), matrix2.getColumnsCount());
@@ -259,7 +261,8 @@ public class Matrix {
         result.append("{");
 
         for (Vector e : rows) {
-            result.append(String.format("%s, ", e.toString()));
+            result.append(e.toString());
+            result.append(", ");
         }
 
         result.delete(result.lastIndexOf(", "), result.length());
