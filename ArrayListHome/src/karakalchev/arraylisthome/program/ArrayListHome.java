@@ -7,26 +7,38 @@ import java.util.Scanner;
 import java.io.FileInputStream;
 
 public class ArrayListHome {
-    private static void readFromFile(ArrayList<String> arrayList, String fileName) {
+    private static void readFromFile(ArrayList<String> stringsList, String fileName) {
         try (Scanner scanner = new Scanner(new FileInputStream(fileName), "windows-1251")) {
             while (scanner.hasNextLine()) {
-                arrayList.add(scanner.nextLine());
+                stringsList.add(scanner.nextLine());
             }
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("Внимание. Файл с именем \"" + fileName + "\" не найден");
         }
     }
 
-    private static ArrayList<Integer> getDifferentElement(ArrayList<Integer> arrayListInteger) {
-        ArrayList<Integer> resultArrayListInteger = new ArrayList<>();
+    private  static void removeEvenNumbers(ArrayList<Integer> numbersList) {
+        ArrayList<Integer> evenNumbersList = new ArrayList<>();
 
-        for (Integer e : arrayListInteger) {
-            if (resultArrayListInteger.indexOf(e) < 0) {
-                resultArrayListInteger.add(e);
+        for (Integer e : numbersList) {
+            if (e % 2 == 0) {
+                evenNumbersList.add(e);
             }
         }
 
-        return resultArrayListInteger;
+        numbersList.removeAll(evenNumbersList);
+    }
+
+    private static ArrayList<Integer> getNumbersListWithoutRepetition(ArrayList<Integer> numbersList) {
+        ArrayList<Integer> numbersListResult = new ArrayList<>();
+
+        for (Integer e : numbersList) {
+            if (!numbersListResult.contains(e)) {
+                numbersListResult.add(e);
+            }
+        }
+
+        return numbersListResult;
     }
 
     public static void main(String[] args) {
@@ -35,20 +47,20 @@ public class ArrayListHome {
         System.out.println("Введите название файла:");
         String fileName = scanner.nextLine();
 
-        ArrayList<String> arrayListString = new ArrayList<>();
+        ArrayList<String> stringsList = new ArrayList<>();
         System.out.println("Чтение данных из файла в список строк:");
-        readFromFile(arrayListString, fileName);
-        System.out.println(arrayListString);
+        readFromFile(stringsList, fileName);
+        System.out.println(stringsList);
         System.out.println();
 
-        ArrayList<Integer> arrayListNumber = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 0));
-        System.out.println("Исходный список чисел: " + arrayListNumber);
-        arrayListNumber.removeIf(e -> (e != 0 && e % 2 == 0));
-        System.out.println("Список чисел без четных чисел: " + arrayListNumber);
+        ArrayList<Integer> numbersList = new ArrayList<>(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9));
+        System.out.println("Исходный список чисел: " + numbersList);
+        removeEvenNumbers(numbersList);
+        System.out.println("Список чисел без четных чисел: " + numbersList);
         System.out.println();
 
-        ArrayList<Integer> arrayListInteger = new ArrayList<>(Arrays.asList(1, 5, 2, 1, 3, 5));
-        System.out.println("Исходный список чисел: " + arrayListInteger);
-        System.out.println("Список чисел без повторяющихся елементов: " + getDifferentElement(arrayListInteger));
+        numbersList = new ArrayList<>(Arrays.asList(1, 5, 2, 1, 3, 5));
+        System.out.println("Исходный список чисел: " + numbersList);
+        System.out.println("Список чисел без повторяющихся елементов: " + getNumbersListWithoutRepetition(numbersList));
     }
 }
