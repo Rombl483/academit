@@ -17,7 +17,7 @@ public class ArrayListHome {
         }
     }
 
-    private  static void removeEvenNumbers(ArrayList<Integer> numbersList) {
+    private static void removeEvenNumbers(ArrayList<Integer> numbersList) {
         ArrayList<Integer> evenNumbersList = new ArrayList<>();
 
         for (Integer e : numbersList) {
