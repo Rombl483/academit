@@ -9,11 +9,11 @@ public class Main {
         try {
             SinglyLinkedList<Integer> listInteger = new SinglyLinkedList<>();
 
-            listInteger.add(1);
-            listInteger.add(2);
-            listInteger.add(3);
-            listInteger.add(4);
-            listInteger.add(5);
+            listInteger.addFront(1);
+            listInteger.addFront(2);
+            listInteger.addFront(3);
+            listInteger.addFront(4);
+            listInteger.addFront(5);
 
             SinglyLinkedList<Integer> listIntegerCopy = listInteger.getCopy();
 
@@ -32,11 +32,14 @@ public class Main {
             System.out.println("Замена значение элемента[3] = " + listInteger.setElementDataAt(3, 10));
             System.out.println(listInteger);
 
-            System.out.println("Добавление элемента по индексу 4");
-            listInteger.addAt(4, 7);
+            System.out.println("Добавление элемента по индексу 5");
+            listInteger.addAt(5, 7);
             System.out.println(listInteger);
 
             System.out.println("Удаление елемента[2] = " + listInteger.deleteAt(2));
+            System.out.println(listInteger);
+
+            System.out.println("Удаление первого елемента = " + listInteger.deleteFront());
             System.out.println(listInteger);
 
             System.out.println("Удаление елемента со значением 10");

@@ -14,6 +14,20 @@ public class SinglyLinkedList<T> {
         return count;
     }
 
+    private ListItem<T> getElementAt(int index) {
+        int i = 0;
+
+        for (ListItem<T> p = head; p != null; p = p.getNext()) {
+            if (i == index) {
+                return p;
+            }
+
+            i++;
+        }
+
+        return null;
+    }
+
     public T getFirstElementData() {
         if (isEmpty()) {
             throw new NoSuchElementException("Список пуст.");
@@ -23,83 +37,59 @@ public class SinglyLinkedList<T> {
     }
 
     public T getElementDataAt(int index) {
-        if (isEmpty()) {
-            throw new NoSuchElementException("Список пуст.");
-        }
-
         if (index < 0 || index >= getSize()) {
             throw new IndexOutOfBoundsException("Индекс выходит за размерность списка.");
         }
 
-        int i = 0;
+        ListItem<T> p = getElementAt(index);
 
-        for (ListItem<T> p = head; p != null; p = p.getNext()) {
-            if (i == index) {
-                return p.getData();
-            }
-
-            i++;
+        if (p != null) {
+            return p.getData();
         }
 
         return null;
     }
 
     public T setElementDataAt(int index, T data) {
-        if (isEmpty()) {
-            throw new NoSuchElementException("Список пуст.");
-        }
-
         if (index < 0 || index >= getSize()) {
             throw new IndexOutOfBoundsException("Индекс выходит за размерность списка.");
         }
 
-        int i = 0;
+        ListItem<T> p = getElementAt(index);
 
-        for (ListItem<T> p = head; p != null; p = p.getNext()) {
-            if (i == index) {
-                T prevValue = p.getData();
-                p.setData(data);
-                return prevValue;
-            }
-
-            i++;
+        if (p != null) {
+            T prevValue = p.getData();
+            p.setData(data);
+            return prevValue;
         }
 
         return null;
     }
 
-    public void add(T data) {
+    public void addFront(T data) {
         head = new ListItem<>(data, head);
         count++;
     }
 
     public void addAt(int index, T data) {
-        if (isEmpty()) {
-            throw new NoSuchElementException("Список пуст.");
-        }
-
-        if (index < 0 || index >= getSize()) {
+        if (index < 0 || index > getSize()) {
             throw new IndexOutOfBoundsException("Индекс выходит за размерность списка.");
         }
 
         if (index == 0) {
-            add(data);
+            addFront(data);
         } else {
-            int i = 0;
+            ListItem<T> p = getElementAt(index - 1);
 
-            for (ListItem<T> p = head, prev = null; p != null; prev = p, p = p.getNext()) {
-                if (i == index) {
-                    ListItem<T> newElement = new ListItem<>(data, p);
-                    prev.setNext(newElement);
-                    count++;
-                }
-
-                i++;
+            if (p != null) {
+                ListItem<T> newElement = new ListItem<>(data, p.getNext());
+                p.setNext(newElement);
+                count++;
             }
         }
     }
 
-    public T delete() {
+    public T deleteFront() {
         if (isEmpty()) {
             throw new NoSuchElementException("Список пуст.");
         }
@@ -111,16 +101,12 @@ public class SinglyLinkedList<T> {
     }
 
     public T deleteAt(int index) {
-        if (isEmpty()) {
-            throw new NoSuchElementException("Список пуст.");
-        }
-
         if (index < 0 || index >= getSize()) {
             throw new IndexOutOfBoundsException("Индекс выходит за размерность списка.");
         }
 
         if (index == 0) {
-            return delete();
+            return deleteFront();
         }
 
         int i = 0;
@@ -145,11 +131,11 @@ public class SinglyLinkedList<T> {
         }
 
         for (ListItem<T> p = head, prev = null; p != null; prev = p, p = p.getNext()) {
-            if (data.equals(p.getData())) {
+            if ((data == null && p.getData() == null) || p.getData().equals(data)) {
                 count--;
 
                 if (prev == null) {
-                    delete();
+                    deleteFront();
                 } else {
                     prev.setNext(p.getNext());
                 }
@@ -162,10 +148,6 @@ public class SinglyLinkedList<T> {
     }
 
     public void revert() {
-        if (isEmpty()) {
-            throw new NoSuchElementException("Список пуст.");
-        }
-
         ListItem<T> prev = null;
         ListItem<T> p = head;
 
@@ -180,13 +162,14 @@ public class SinglyLinkedList<T> {
     }
 
     public SinglyLinkedList<T> getCopy() {
+        SinglyLinkedList<T> clone = new SinglyLinkedList<>();
+
         if (isEmpty()) {
-            throw new NoSuchElementException("Список пуст.");
+            return clone;
         }
 
-        SinglyLinkedList<T> cloneSinglyLinkedList = new SinglyLinkedList<>();
-        ListItem<T> pClone = new ListItem<>(head.getData(), head.getNext());
-        cloneSinglyLinkedList.head = pClone;
+        ListItem<T> pClone = new ListItem<>(head.getData());
+        clone.head = pClone;
 
         for (ListItem<T> p = head.getNext(); p != null; p = p.getNext()) {
             ListItem<T> elementCopy = new ListItem<>(p.getData(), p.getNext());
@@ -194,25 +177,24 @@ public class SinglyLinkedList<T> {
             pClone = pClone.getNext();
         }
 
-        cloneSinglyLinkedList.count = count;
-        return cloneSinglyLinkedList;
+        clone.count = count;
+        return clone;
     }
 
     @Override
     public String toString() {
-        if (isEmpty()) {
-            throw new NoSuchElementException("Список пуст.");
-        }
-
         StringBuilder result = new StringBuilder();
         result.append("[");
 
         for (ListItem<T> p = head; p != null; p = p.getNext()) {
             result.append(p.getData());
-            result.append("; ");
+            result.append(", ");
         }
 
-        result.delete(result.lastIndexOf("; "), result.length());
+        if (result.lastIndexOf(", ") > -1) {
+            result.delete(result.lastIndexOf(", "), result.length());
+        }
+
         result.append("]");
         return result.toString();
     }
