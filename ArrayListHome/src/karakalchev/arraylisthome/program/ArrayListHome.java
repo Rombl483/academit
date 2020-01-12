@@ -7,7 +7,9 @@ import java.util.Scanner;
 import java.io.FileInputStream;
 
 public class ArrayListHome {
-    private static void readFromFile(ArrayList<String> stringsList, String fileName) {
+    private static ArrayList<String> readFromFile(String fileName) {
+        ArrayList<String> stringsList = new ArrayList<>();
+
         try (Scanner scanner = new Scanner(new FileInputStream(fileName), "windows-1251")) {
             while (scanner.hasNextLine()) {
                 stringsList.add(scanner.nextLine());
@@ -15,30 +17,32 @@ public class ArrayListHome {
         } catch (FileNotFoundException e) {
             System.out.println("Внимание. Файл с именем \"" + fileName + "\" не найден");
         }
+
+        return stringsList;
     }
 
     private static void removeEvenNumbers(ArrayList<Integer> numbersList) {
-        ArrayList<Integer> evenNumbersList = new ArrayList<>();
+        int i = 0;
 
-        for (Integer e : numbersList) {
-            if (e % 2 == 0) {
-                evenNumbersList.add(e);
+        while (i < numbersList.size()) {
+            if (numbersList.get(i) % 2 == 0) {
+                numbersList.remove(i);
             }
-        }
 
-        numbersList.removeAll(evenNumbersList);
+            i++;
+        }
     }
 
     private static ArrayList<Integer> getNumbersListWithoutRepetition(ArrayList<Integer> numbersList) {
-        ArrayList<Integer> numbersListResult = new ArrayList<>();
+        ArrayList<Integer> resultNumbersList = new ArrayList<>();
 
         for (Integer e : numbersList) {
-            if (!numbersListResult.contains(e)) {
-                numbersListResult.add(e);
+            if (!resultNumbersList.contains(e)) {
+                resultNumbersList.add(e);
             }
         }
 
-        return numbersListResult;
+        return resultNumbersList;
     }
 
     public static void main(String[] args) {
@@ -47,9 +51,8 @@ public class ArrayListHome {
         System.out.println("Введите название файла:");
         String fileName = scanner.nextLine();
 
-        ArrayList<String> stringsList = new ArrayList<>();
         System.out.println("Чтение данных из файла в список строк:");
-        readFromFile(stringsList, fileName);
+        ArrayList<String> stringsList = readFromFile(fileName);
         System.out.println(stringsList);
         System.out.println();
 
