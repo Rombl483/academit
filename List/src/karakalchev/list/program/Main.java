@@ -13,6 +13,7 @@ public class Main {
             listInteger.addFront(2);
             listInteger.addFront(3);
             listInteger.addFront(4);
+            listInteger.addFront(null);
             listInteger.addFront(5);
 
             SinglyLinkedList<Integer> listIntegerCopy = listInteger.getCopy();
@@ -36,11 +37,17 @@ public class Main {
             listInteger.addAt(5, 7);
             System.out.println(listInteger);
 
-            System.out.println("Удаление елемента[2] = " + listInteger.deleteAt(2));
+            System.out.println("Удаление елемента[6] = " + listInteger.deleteAt(6));
             System.out.println(listInteger);
 
             System.out.println("Удаление первого елемента = " + listInteger.deleteFront());
             System.out.println(listInteger);
+
+            System.out.println("Удаление елемента со значением null");
+
+            if (listInteger.deleteElementByData(null)) {
+                System.out.println(listInteger);
+            }
 
             System.out.println("Удаление елемента со значением 10");
 

@@ -1,6 +1,7 @@
 package karakalchev.list.libraries;
 
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 public class SinglyLinkedList<T> {
     private ListItem<T> head;
@@ -16,16 +17,18 @@ public class SinglyLinkedList<T> {
 
     private ListItem<T> getElementAt(int index) {
         int i = 0;
+        ListItem<T> p = head;
 
-        for (ListItem<T> p = head; p != null; p = p.getNext()) {
+        while (p != null) {
             if (i == index) {
-                return p;
+                break;
             }
 
+            p = p.getNext();
             i++;
         }
 
-        return null;
+        return p;
     }
 
     public T getFirstElementData() {
@@ -41,13 +44,7 @@ public class SinglyLinkedList<T> {
             throw new IndexOutOfBoundsException("Индекс выходит за размерность списка.");
         }
 
-        ListItem<T> p = getElementAt(index);
-
-        if (p != null) {
-            return p.getData();
-        }
-
-        return null;
+        return getElementAt(index).getData();
     }
 
     public T setElementDataAt(int index, T data) {
@@ -56,14 +53,9 @@ public class SinglyLinkedList<T> {
         }
 
         ListItem<T> p = getElementAt(index);
-
-        if (p != null) {
-            T prevValue = p.getData();
-            p.setData(data);
-            return prevValue;
-        }
-
-        return null;
+        T prevValue = p.getData();
+        p.setData(data);
+        return prevValue;
     }
 
     public void addFront(T data) {
@@ -80,12 +72,9 @@ public class SinglyLinkedList<T> {
             addFront(data);
         } else {
             ListItem<T> p = getElementAt(index - 1);
-
-            if (p != null) {
-                ListItem<T> newElement = new ListItem<>(data, p.getNext());
-                p.setNext(newElement);
-                count++;
-            }
+            ListItem<T> newElement = new ListItem<>(data, p.getNext());
+            p.setNext(newElement);
+            count++;
         }
     }
 
@@ -109,20 +98,11 @@ public class SinglyLinkedList<T> {
             return deleteFront();
         }
 
-        int i = 0;
-
-        for (ListItem<T> p = head, prev = null; p != null; prev = p, p = p.getNext()) {
-            if (i == index) {
-                T prevValue = p.getData();
-                prev.setNext(p.getNext());
-                count--;
-                return prevValue;
-            }
-
-            i++;
-        }
-
-        return null;
+        ListItem<T> p = getElementAt(index - 1);
+        T prevValue = p.getNext().getData();
+        p.setNext(p.getNext().getNext());
+        count--;
+        return prevValue;
     }
 
     public boolean deleteElementByData(T data) {
@@ -131,7 +111,7 @@ public class SinglyLinkedList<T> {
         }
 
         for (ListItem<T> p = head, prev = null; p != null; prev = p, p = p.getNext()) {
-            if ((data == null && p.getData() == null) || p.getData().equals(data)) {
+            if (Objects.equals(data, p.getData())) {
                 count--;
 
                 if (prev == null) {
@@ -191,8 +171,10 @@ public class SinglyLinkedList<T> {
             result.append(", ");
         }
 
-        if (result.lastIndexOf(", ") > -1) {
-            result.delete(result.lastIndexOf(", "), result.length());
+        int expressionIndex = result.lastIndexOf(", ");
+
+        if (expressionIndex > -1) {
+            result.delete(expressionIndex, result.length());
         }
 
         result.append("]");
