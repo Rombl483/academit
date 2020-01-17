@@ -22,14 +22,12 @@ public class ArrayListHome {
     }
 
     private static void removeEvenNumbers(ArrayList<Integer> numbersList) {
-        int i = 0;
+        for (int i = 0; i < numbersList.size(); i++) {
+            Integer e = numbersList.get(i);
 
-        while (i < numbersList.size()) {
-            if (numbersList.get(i) % 2 == 0) {
-                numbersList.remove(i);
+            if (e % 2 == 0) {
+                numbersList.remove(e);
             }
-
-            i++;
         }
     }
 
