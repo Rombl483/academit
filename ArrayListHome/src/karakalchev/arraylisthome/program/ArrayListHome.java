@@ -23,10 +23,9 @@ public class ArrayListHome {
 
     private static void removeEvenNumbers(ArrayList<Integer> numbersList) {
         for (int i = 0; i < numbersList.size(); i++) {
-            Integer e = numbersList.get(i);
-
-            if (e % 2 == 0) {
-                numbersList.remove(e);
+            if (numbersList.get(i) % 2 == 0) {
+                numbersList.remove(i);
+                i--;
             }
         }
     }
