@@ -103,7 +103,7 @@ public class Matrix {
 
     public Vector getRow(int index) {
         if (index < 0 || index >= getRowsCount()) {
-            throw new IndexOutOfBoundsException(String.format("Индекс вектора-строки матрицы " + "должен быть >= 0 и < %d.", getRowsCount()));
+            throw new IndexOutOfBoundsException(String.format("Индекс вектора-строки матрицы должен быть >= 0 и < %d.", getRowsCount()));
         }
 
         return new Vector(rows[index]);
