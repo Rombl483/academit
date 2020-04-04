@@ -10,6 +10,7 @@ public class Main {
     public static void main(String[] args) {
         try {
             MyArrayList<Integer> arrayList = new MyArrayList<>();
+            System.out.println(Arrays.toString(arrayList.toArray()));
             arrayList.add(1);
             arrayList.add(1);
             arrayList.add(1);
@@ -34,19 +35,19 @@ public class Main {
             numbersList.remove(8);
             System.out.println(numbersList);
 
-            System.out.printf("size() = %d\n", numbersList.size());
+            System.out.printf("size() = %d%n", numbersList.size());
             numbersList.add(0, 0);
             System.out.println(numbersList);
 
-            System.out.printf("size() = %d\n", numbersList.size());
+            System.out.printf("size() = %d%n", numbersList.size());
             numbersList.add(9, 9);
             System.out.println(numbersList);
 
-            System.out.printf("size() = %d\n", numbersList.size());
+            System.out.printf("size() = %d%n", numbersList.size());
             numbersList.add(15, 15);
             System.out.println(numbersList);
 
-            System.out.printf("size() = %d\n", numbersList.size());
+            System.out.printf("size() = %d%n", numbersList.size());
             numbersList.add(16, 16);
             System.out.println(numbersList);
 
@@ -56,7 +57,7 @@ public class Main {
             numbersList.add(16, 16);
             System.out.println(numbersList);
 
-            System.out.printf("size() = %d\n", numbersList.size());
+            System.out.printf("size() = %d%n", numbersList.size());
             numbersList.add(16, null);
             System.out.println(numbersList);
 
@@ -81,8 +82,8 @@ public class Main {
             }
 
             System.out.println(numbersList);
-            System.out.println(numbersList.lastIndexOf(16));
-            numbersList.addAll(16, Arrays.asList(1, 2, 3, 4, 5, 6, 7));
+            System.out.println("numbersList.lastIndexOf(16) = " + numbersList.lastIndexOf(16));
+            numbersList.addAll(3, Arrays.asList(1, 2, 3, 4, 5, 6, 7));
             System.out.println(numbersList);
 
 
@@ -102,7 +103,7 @@ public class Main {
             System.out.println(Arrays.toString(numbersList.toArray()));
 
             System.out.println("Массив определенного типа:");
-            System.out.println(Arrays.toString(numbersList.toArray(new Integer[numbersList.size()])));
+            System.out.println(Arrays.toString(numbersList.toArray(new Integer[0])));
 
             System.out.println("Iterator");
             Iterator<Integer> iterator = numbersList.iterator();
