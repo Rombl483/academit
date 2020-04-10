@@ -1,11 +1,11 @@
 package karakalchev.libraries;
 
 public class Person {
-    String name;
-    int age;
+    private String name;
+    private int age;
 
     public Person(String name, int age) {
-        if ((name == null) || (name == "")) {
+        if ((name == null) || (name.equals(""))) {
             throw new IllegalArgumentException("Не задано имя.");
         }
 
@@ -18,7 +18,7 @@ public class Person {
     }
 
     public void setName(String name) {
-        if ((name == null) || (name == "")) {
+        if ((name == null) || (name.equals(""))) {
             throw new IllegalArgumentException("Не задано имя.");
         }
 
