@@ -1,6 +1,7 @@
 package karakalchev.arrayList.program;
 
-import karakalchev.arrayList.libraries.MyArrayList;
+import karakalchev.arrayList.libraries.ArrayList;
+
 import java.util.Arrays;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
@@ -9,7 +10,7 @@ import java.util.NoSuchElementException;
 public class Main {
     public static void main(String[] args) {
         try {
-            MyArrayList<Integer> arrayList = new MyArrayList<>();
+            ArrayList<Integer> arrayList = new ArrayList<>();
             System.out.println(Arrays.toString(arrayList.toArray()));
             arrayList.add(1);
             arrayList.add(1);
@@ -28,7 +29,7 @@ public class Main {
             arrayList.add(1);
             System.out.println(arrayList);
 
-            MyArrayList<Integer> numbersList = new MyArrayList<>(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15));
+            ArrayList<Integer> numbersList = new ArrayList<>(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15));
             System.out.println(numbersList);
             numbersList.remove(15);
             numbersList.remove(0);
@@ -87,7 +88,7 @@ public class Main {
             System.out.println(numbersList);
 
 
-            if (numbersList.removeAll(Arrays.asList(3, 4, 5))) {
+            if (numbersList.removeAll(Arrays.asList(3, 4, 55))) {
                 System.out.println("removedAll");
                 System.out.println(numbersList);
             }

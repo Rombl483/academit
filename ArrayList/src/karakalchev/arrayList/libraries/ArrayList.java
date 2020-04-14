@@ -3,17 +3,17 @@ package karakalchev.arrayList.libraries;
 
 import java.util.*;
 
-public class MyArrayList<T> implements List<T> {
+public class ArrayList<T> implements List<T> {
     private T[] items;
     private int count;
     private int modCount;
 
-    public MyArrayList() {
+    public ArrayList() {
         //noinspection unchecked
         items = (T[]) new Object[10];
     }
 
-    public MyArrayList(int initialCapacity) {
+    public ArrayList(int initialCapacity) {
         if (initialCapacity < 0) {
             throw new IllegalArgumentException("Количество элементов списка на массиве не может быть < 0");
         }
@@ -22,7 +22,7 @@ public class MyArrayList<T> implements List<T> {
         items = (T[]) new Object[initialCapacity];
     }
 
-    public MyArrayList(Collection<? extends T> c) {
+    public ArrayList(Collection<? extends T> c) {
         if (c == null) {
             throw new NullPointerException("Пустая коллекция.");
         }
@@ -43,7 +43,7 @@ public class MyArrayList<T> implements List<T> {
     }
 
     private void ensureCapacity(int minCapacity) {
-        if (minCapacity <= 0 || minCapacity >= Integer.MAX_VALUE) {
+        if (minCapacity < 0) {
             throw new IllegalArgumentException("Параметр может принимать только положительные целые числа.");
         }
 
@@ -59,13 +59,13 @@ public class MyArrayList<T> implements List<T> {
         }
     }
 
-    private void checkRange(int index) {
+    private void checkIndex(int index) {
         if (index < 0 || index >= count) {
             throw new IndexOutOfBoundsException("Индекс: " + index + ", выходит за пределы списка: " + count);
         }
     }
 
-    private void checkRangeForAddRemove(int index) {
+    private void checkIndexForAdd(int index) {
         if (index < 0 || index > count) {
             throw new IndexOutOfBoundsException("Индекс: " + index + ", выходит за пределы списка: " + count);
         }
@@ -73,13 +73,13 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public T get(int index) {
-        checkRange(index);
+        checkIndex(index);
         return items[index];
     }
 
     @Override
     public T set(int index, T element) {
-        checkRange(index);
+        checkIndex(index);
         T prevValue = items[index];
         items[index] = element;
 
@@ -119,10 +119,8 @@ public class MyArrayList<T> implements List<T> {
             throw new NullPointerException("Пустая коллекция.");
         }
 
-        Object[] c_array = c.toArray();
-
-        for (int i = 0; i < c.size(); i++) {
-            if (!contains(c_array[i])) {
+        for (Object e : c) {
+            if (!contains(e)) {
                 return false;
             }
         }
@@ -133,7 +131,7 @@ public class MyArrayList<T> implements List<T> {
     @Override
     public boolean add(T element) {
         if (count >= items.length) {
-            ensureCapacity(2 * count);
+            ensureCapacity(2 * count + 1);
         }
 
         items[count] = element;
@@ -145,7 +143,7 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public void add(int index, T element) {
-        checkRangeForAddRemove(index);
+        checkIndexForAdd(index);
 
         if (index == count) {
             add(element);
@@ -167,17 +165,22 @@ public class MyArrayList<T> implements List<T> {
             throw new NullPointerException("Пустая коллекция.");
         }
 
-        if ((count + c.size()) >= items.length) {
-            ensureCapacity(count + c.size());
+        int collectionSize = c.size();
+
+        if ((count + collectionSize) >= items.length) {
+            ensureCapacity(count + collectionSize);
         }
 
-        //noinspection unchecked
-        T[] temp_array = (T[]) c.toArray();
-        System.arraycopy(temp_array, 0, items, count, c.size());
-        count += c.size();
-        modCount++;
+        for (T e : c) {
+            items[count] = e;
+            count++;
+        }
 
-        return true;
+        if (collectionSize > 0) {
+            modCount++;
+        }
+
+        return collectionSize > 0;
     }
 
     @Override
@@ -186,24 +189,32 @@ public class MyArrayList<T> implements List<T> {
             throw new NullPointerException("Пустая коллекция.");
         }
 
-        checkRangeForAddRemove(index);
+        checkIndexForAdd(index);
 
         if (index == count) {
             return addAll(c);
-        } else {
-            if ((count + c.size()) >= items.length) {
-                ensureCapacity(count + c.size());
-            }
+        }
 
-            System.arraycopy(items, index, items, index + c.size(), count - index);
-            //noinspection unchecked
-            T[] temp_array = (T[]) c.toArray();
-            System.arraycopy(temp_array, 0, items, index, c.size());
-            count += c.size();
+        int collectionSize = c.size();
+
+        if ((count + collectionSize) >= items.length) {
+            ensureCapacity(2 * count + collectionSize);
+        }
+
+        System.arraycopy(items, index, items, index + collectionSize, count - index);
+
+        for (T e : c) {
+            items[index] = e;
+            index++;
+        }
+
+        count += collectionSize;
+
+        if (collectionSize > 0) {
             modCount++;
         }
 
-        return true;
+        return collectionSize > 0;
     }
 
     @Override
@@ -220,7 +231,7 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public T remove(int index) {
-        checkRangeForAddRemove(index);
+        checkIndex(index);
         T removedElement = items[index];
 
         if (index < count - 1) {
@@ -236,18 +247,16 @@ public class MyArrayList<T> implements List<T> {
     @Override
     public boolean removeAll(Collection<?> c) {
         if (c == null) {
-            throw new NullPointerException("Пустая коллекция.");
+            throw new NullPointerException("Передана пустая коллекция значений.");
         }
 
         boolean isRemoved = false;
 
-        for (Object e : c) {
-            for (int i = 0; i < count; i++) {
-                if (Objects.equals(items[i], e)) {
-                    remove(i);
-                    i--;
-                    isRemoved = true;
-                }
+        for (int i = 0; i < count; i++) {
+            if (c.contains(items[i])) {
+                remove(i);
+                i--;
+                isRemoved = true;
             }
         }
 
@@ -257,7 +266,7 @@ public class MyArrayList<T> implements List<T> {
     @Override
     public boolean retainAll(Collection<?> c) {
         if (c == null) {
-            throw new NullPointerException("Пустая коллекция.");
+            throw new NullPointerException("Передана пустая коллекция значений.");
         }
 
         boolean isRemoved = false;
@@ -292,9 +301,10 @@ public class MyArrayList<T> implements List<T> {
     public <T1> T1[] toArray(T1[] a) {
         if (count > a.length) {
             //noinspection unchecked
-            return ((T1[]) Arrays.copyOf(items, count));
+            return (T1[]) Arrays.copyOf(items, count, a.getClass());
         }
 
+        //noinspection SuspiciousSystemArraycopy
         System.arraycopy(items, 0, a, 0, count);
 
         if (a.length > count) {
@@ -304,7 +314,7 @@ public class MyArrayList<T> implements List<T> {
         return a;
     }
 
-    private class MyIterator implements Iterator<T> {
+    private class ArrayListIterator implements Iterator<T> {
         private int currentIndex = -1;
         private int iteratorModCount = modCount;
 
@@ -316,7 +326,7 @@ public class MyArrayList<T> implements List<T> {
         @Override
         public T next() {
             if (modCount != iteratorModCount) {
-                throw new ConcurrentModificationException("Несоответсвтие размера коллекции.");
+                throw new ConcurrentModificationException("Коллекция была модифицирована.");
             }
 
             if (!hasNext()) {
@@ -331,28 +341,28 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return new MyIterator();
+        return new ArrayListIterator();
     }
 
     @Override
     public String toString() {
-        if (count > 0) {
-            StringBuilder result = new StringBuilder();
-            result.append("[");
-
-            for (int i = 0; i < count; i++) {
-                result.append(items[i]);
-                result.append(", ");
-            }
-
-            int resultLength = result.length();
-            result.delete(resultLength - 2, resultLength);
-            result.append("]");
-
-            return result.toString();
+        if (count <= 0) {
+            return "[]";
         }
 
-        return "[]";
+        StringBuilder result = new StringBuilder();
+        result.append("[");
+
+        for (int i = 0; i < count; i++) {
+            result.append(items[i]);
+            result.append(", ");
+        }
+
+        int resultLength = result.length();
+        result.delete(resultLength - 2, resultLength);
+        result.append("]");
+
+        return result.toString();
     }
 
     @Override
