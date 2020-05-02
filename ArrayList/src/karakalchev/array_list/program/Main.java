@@ -1,6 +1,6 @@
-package karakalchev.arrayList.program;
+package karakalchev.array_list.program;
 
-import karakalchev.arrayList.libraries.ArrayList;
+import karakalchev.array_list.libraries.ArrayList;
 
 import java.util.Arrays;
 import java.util.ConcurrentModificationException;
@@ -26,7 +26,7 @@ public class Main {
             arrayList.add(1);
             arrayList.add(1);
             arrayList.add(1);
-            arrayList.add(1);
+            arrayList.add(10);
             System.out.println(arrayList);
 
             ArrayList<Integer> numbersList = new ArrayList<>(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15));

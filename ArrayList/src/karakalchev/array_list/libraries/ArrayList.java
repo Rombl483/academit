@@ -1,4 +1,4 @@
-package karakalchev.arrayList.libraries;
+package karakalchev.array_list.libraries;
 
 
 import java.util.*;
@@ -61,13 +61,13 @@ public class ArrayList<T> implements List<T> {
 
     private void checkIndex(int index) {
         if (index < 0 || index >= count) {
-            throw new IndexOutOfBoundsException("Индекс: " + index + ", выходит за пределы списка: " + count);
+            throw new IndexOutOfBoundsException("Индекс: " + index + ", выходит за пределы списка: 0.." + (count - 1));
         }
     }
 
     private void checkIndexForAdd(int index) {
         if (index < 0 || index > count) {
-            throw new IndexOutOfBoundsException("Индекс: " + index + ", выходит за пределы списка: " + count);
+            throw new IndexOutOfBoundsException("Индекс: " + index + ", выходит за пределы диапазона добавления в списк: 0.." + count);
         }
     }
 
@@ -80,10 +80,10 @@ public class ArrayList<T> implements List<T> {
     @Override
     public T set(int index, T element) {
         checkIndex(index);
-        T prevValue = items[index];
+        T previousValue = items[index];
         items[index] = element;
 
-        return prevValue;
+        return previousValue;
     }
 
     @Override
@@ -147,40 +147,22 @@ public class ArrayList<T> implements List<T> {
 
         if (index == count) {
             add(element);
-        } else {
-            if (count >= items.length) {
-                ensureCapacity(2 * count);
-            }
-
-            System.arraycopy(items, index, items, index + 1, count - index);
-            count++;
-            modCount++;
-            items[index] = element;
+            return;
         }
+
+        if (count >= items.length) {
+            ensureCapacity(2 * count);
+        }
+
+        System.arraycopy(items, index, items, index + 1, count - index);
+        count++;
+        modCount++;
+        items[index] = element;
     }
 
     @Override
     public boolean addAll(Collection<? extends T> c) {
-        if (c == null) {
-            throw new NullPointerException("Пустая коллекция.");
-        }
-
-        int collectionSize = c.size();
-
-        if ((count + collectionSize) >= items.length) {
-            ensureCapacity(count + collectionSize);
-        }
-
-        for (T e : c) {
-            items[count] = e;
-            count++;
-        }
-
-        if (collectionSize > 0) {
-            modCount++;
-        }
-
-        return collectionSize > 0;
+        return addAll(count, c);
     }
 
     @Override
@@ -190,31 +172,28 @@ public class ArrayList<T> implements List<T> {
         }
 
         checkIndexForAdd(index);
-
-        if (index == count) {
-            return addAll(c);
-        }
-
         int collectionSize = c.size();
 
-        if ((count + collectionSize) >= items.length) {
-            ensureCapacity(2 * count + collectionSize);
+        if (collectionSize == 0) {
+            return false;
         }
+
+        ensureCapacity(count + collectionSize);
 
         System.arraycopy(items, index, items, index + collectionSize, count - index);
 
+        int i = index;
+
         for (T e : c) {
-            items[index] = e;
-            index++;
+            items[i] = e;
+            i++;
         }
 
         count += collectionSize;
 
-        if (collectionSize > 0) {
-            modCount++;
-        }
+        modCount++;
 
-        return collectionSize > 0;
+        return true;
     }
 
     @Override
@@ -239,6 +218,7 @@ public class ArrayList<T> implements List<T> {
         }
 
         count--;
+        items[count] = null;
         modCount++;
 
         return removedElement;
@@ -247,7 +227,7 @@ public class ArrayList<T> implements List<T> {
     @Override
     public boolean removeAll(Collection<?> c) {
         if (c == null) {
-            throw new NullPointerException("Передана пустая коллекция значений.");
+            throw new NullPointerException("Не задана коллекция значений.");
         }
 
         boolean isRemoved = false;
@@ -266,7 +246,7 @@ public class ArrayList<T> implements List<T> {
     @Override
     public boolean retainAll(Collection<?> c) {
         if (c == null) {
-            throw new NullPointerException("Передана пустая коллекция значений.");
+            throw new NullPointerException("Не задана коллекция значений.");
         }
 
         boolean isRemoved = false;
@@ -316,7 +296,7 @@ public class ArrayList<T> implements List<T> {
 
     private class ArrayListIterator implements Iterator<T> {
         private int currentIndex = -1;
-        private int iteratorModCount = modCount;
+        private final int iteratorModCount = modCount;
 
         @Override
         public boolean hasNext() {
@@ -346,7 +326,7 @@ public class ArrayList<T> implements List<T> {
 
     @Override
     public String toString() {
-        if (count <= 0) {
+        if (count == 0) {
             return "[]";
         }
 
