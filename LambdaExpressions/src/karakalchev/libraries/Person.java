@@ -5,7 +5,7 @@ public class Person {
     private int age;
 
     public Person(String name, int age) {
-        if ((name == null) || (name.equals(""))) {
+        if (name.isEmpty()) {
             throw new IllegalArgumentException("Не задано имя.");
         }
 
@@ -17,12 +17,20 @@ public class Person {
         this.age = age;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void setName(String name) {
-        if ((name == null) || (name.equals(""))) {
+        if (name.isEmpty()) {
             throw new IllegalArgumentException("Не задано имя.");
         }
 
         this.name = name;
+    }
+
+    public int getAge() {
+        return age;
     }
 
     public void setAge(int age) {
@@ -31,14 +39,6 @@ public class Person {
         }
 
         this.age = age;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getAge() {
-        return age;
     }
 
     @Override
