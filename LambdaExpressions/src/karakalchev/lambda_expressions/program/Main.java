@@ -1,6 +1,6 @@
-package karakalchev.program;
+package karakalchev.lambda_expressions.program;
 
-import karakalchev.libraries.Person;
+import karakalchev.lambda_expressions.libraries.Person;
 
 import java.util.Arrays;
 import java.util.List;
@@ -69,23 +69,22 @@ public class Main {
     }
 
     private static void printSqrtSequence(int sequenceSize) {
-        DoubleStream sequenceSQRT = DoubleStream.iterate(0, x -> x + 1)
-                .limit(sequenceSize)
-                .map(Math::sqrt);
+        DoubleStream sqrtSequence = DoubleStream.iterate(0, x -> x + 1)
+                .map(Math::sqrt)
+                .limit(sequenceSize);
 
         System.out.println("Последовательность квардратных корней чисел:");
-        sequenceSQRT.forEach(x -> System.out.printf("%.2f   ", x));
+        sqrtSequence.forEach(x -> System.out.printf("%.2f   ", x));
         System.out.println();
     }
 
     private static void printFibonacciSequence(int sequenceSize) {
-        IntStream sequenceFibonacci = Stream.iterate(new int[]{0, 1}, x -> new int[]{x[1], x[0] + x[1]})
-                .limit(sequenceSize)
-                .map(x -> x[0])
-                .mapToInt(Integer::intValue);
+        IntStream fibonacciSequence = Stream.iterate(new int[]{0, 1}, x -> new int[]{x[1], x[0] + x[1]})
+                .mapToInt(x -> x[0])
+                .limit(sequenceSize);
 
         System.out.println("Последовательность чисел Фибоначчи:");
-        sequenceFibonacci.forEach(x -> System.out.printf("%d   ", x));
+        fibonacciSequence.forEach(x -> System.out.printf("%d   ", x));
         System.out.println();
     }
 
