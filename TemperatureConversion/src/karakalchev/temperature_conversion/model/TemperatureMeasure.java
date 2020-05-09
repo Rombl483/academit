@@ -1,7 +1,7 @@
-package karakalchev.temperatureconversion.libraries;
+package karakalchev.temperature_conversion.model;
 
 public enum TemperatureMeasure {
-    CELCIUS("ЦЕЛЬСИЙ"),
+    CELSIUS("ЦЕЛЬСИЙ"),
     KELVIN("КЕЛЬВИН"),
     FAHRENHEIT("ФАРЕНГЕЙТ");
 
@@ -11,7 +11,8 @@ public enum TemperatureMeasure {
         this.title = title;
     }
 
-    public String getTitle() {
+    @Override
+    public String toString() {
         return title;
     }
 }
