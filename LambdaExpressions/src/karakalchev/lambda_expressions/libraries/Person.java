@@ -1,4 +1,4 @@
-package karakalchev.libraries;
+package karakalchev.lambda_expressions.libraries;
 
 public class Person {
     private String name;
