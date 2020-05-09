@@ -30,17 +30,19 @@ public class ControllerTemperatureConversion {
         model.setTemperatureMeasureTo((TemperatureMeasure) view.getComboBoxTemperatureMeasureTo().getSelectedItem());
 
         String temperatureValueFrom = view.getTextFieldValueFrom().getText();
-        if (isNumeral(temperatureValueFrom)) {
-            model.setTemperatureValueFrom(Double.parseDouble(temperatureValueFrom.replace(",", ".")));
-        } else {
+
+        if (!isNumber(temperatureValueFrom)) {
+            view.getTextFieldValueTo().setText("");
             view.showMessage();
+            return;
         }
 
+        model.setTemperatureValueFrom(Double.parseDouble(temperatureValueFrom.replace(",", ".")));
         model.convertTo();
         view.getTextFieldValueTo().setText(String.format("%.3f", model.getTemperatureValueTo()));
     }
 
-    private boolean isNumeral(String string) {
+    private boolean isNumber(String string) {
         if (string == null || string.isEmpty()) {
             return false;
         }
