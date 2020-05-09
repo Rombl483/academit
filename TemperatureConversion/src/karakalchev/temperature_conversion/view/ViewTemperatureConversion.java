@@ -80,7 +80,7 @@ public class ViewTemperatureConversion {
     }
 
     public void showMessage() {
-        JOptionPane.showMessageDialog(frame, "Введите число.", "информация", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(frame, "Введите число.", "Информация", JOptionPane.WARNING_MESSAGE);
     }
 
     public JComboBox<TemperatureMeasure> getComboBoxTemperatureMeasureFrom() {
