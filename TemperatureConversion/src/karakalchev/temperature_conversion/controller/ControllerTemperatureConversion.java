@@ -62,4 +62,3 @@ public class ControllerTemperatureConversion {
         return true;
     }
 }
-

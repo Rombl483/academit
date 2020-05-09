@@ -123,4 +123,3 @@ public class ViewTemperatureConversion {
         this.buttonConvertTo = buttonConvertTo;
     }
 }
-
