@@ -2,11 +2,11 @@ package karakalchev.temperature_conversion.model;
 
 public class FahrenheitTemperatureScale extends TemperatureScale {
     public FahrenheitTemperatureScale() {
-        super("", 32.0);
+        super("ФАРЕНГЕЙТ", 32.0);
     }
 
     public FahrenheitTemperatureScale(double value) {
-        super("", value);
+        super("ФАРЕНГЕЙТ", value);
     }
 
     @Override
