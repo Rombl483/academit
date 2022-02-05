@@ -9,13 +9,9 @@ public abstract class TemperatureScale {
         this.value = value;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public double getValue() {
         return value;
-    };
+    }
 
     public void setValue(double value) {
         this.value = value;
@@ -24,4 +20,9 @@ public abstract class TemperatureScale {
     public abstract void convert(TemperatureScale temperatureScaleFrom);
 
     public abstract double getCelsius();
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

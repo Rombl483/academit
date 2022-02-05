@@ -5,10 +5,6 @@ public class FahrenheitTemperatureScale extends TemperatureScale {
         super("ФАРЕНГЕЙТ", 32.0);
     }
 
-    public FahrenheitTemperatureScale(double value) {
-        super("ФАРЕНГЕЙТ", value);
-    }
-
     @Override
     public void convert(TemperatureScale temperatureScaleFrom) {
         setValue(temperatureScaleFrom.getCelsius() * 1.8 + 32.0);

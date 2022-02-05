@@ -5,10 +5,6 @@ public class KelvinTemperatureScale extends TemperatureScale {
         super("КЕЛЬВИН", 273.15);
     }
 
-    public KelvinTemperatureScale(double value) {
-        super("КЕЛЬВИН", value);
-    }
-
     @Override
     public void convert(TemperatureScale temperatureScaleFrom) {
         setValue(temperatureScaleFrom.getCelsius() + 273.15);
